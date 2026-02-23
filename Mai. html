@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stone City · crash games hub</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Orbitron (for futuristic vibe) + Inter (readable) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0c14;
+            color: #e9eef3;
+            line-height: 1.5;
+            background-image: radial-gradient(circle at 10% 20%, rgba(90, 40, 140, 0.2) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 70%, rgba(255, 180, 40, 0.1) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header with neon touch */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 200, 70, 0.15);
+            background-color: rgba(10, 8, 20, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #f5b01b, #ff6b4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 120, 0, 0.5);
+        }
+
+        .logo span {
+            font-size: 1rem;
+            background: none;
+            -webkit-text-fill-color: #aaa;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            margin-left: 8px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav a:hover {
+            color: #ffb347;
+            text-shadow: 0 0 5px #ffb347;
+        }
+
+        .btn-glow {
+            background: linear-gradient(145deg, #2f2645, #1a1530);
+            border: 1px solid #ffb347;
+            color: #ffb347;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 0 12px rgba(255, 180, 70, 0.3);
+        }
+
+        .btn-glow:hover {
+            background: #ffb347;
+            color: #0b0c14;
+            box-shadow: 0 0 24px #ffb347;
+        }
+
+        /* hero section */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff4d0, #ffb851, #ff7840);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b9d0;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .badge {
+            background: rgba(255, 180, 70, 0.1);
+            border: 1px solid rgba(255, 180, 70, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #ffc489;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge i {
+            color: #ffb347;
+        }
+
+        /* game grid */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            background: linear-gradient(135deg, #f5e6d3, #ffb851);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            border-left: 5px solid #ffb347;
+            padding-left: 20px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0 60px;
+        }
+
+        .game-card {
+            background: rgba(18, 20, 30, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 180, 70, 0.2);
+            border-radius: 36px;
+            padding: 30px 20px;
+            transition: all 0.25s;
+            box-shadow: 0 20px 30px -15px black;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(145deg, #ffb347, #ff6b4a, #b44eff);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -2;
+            border-radius: 38px;
+        }
+
+        .game-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            border-color: transparent;
+            box-shadow: 0 30px 40px -10px #ffb34740;
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #ffb347;
+            filter: drop-shadow(0 0 10px #ffa500);
+        }
+
+        .game-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #ffd49f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-card p {
+            color: #a0aac0;
+            margin-bottom: 20px;
+        }
+
+        .multiplier-badge {
+            background: #1e1a30;
+            padding: 6px 15px;
+            border-radius: 60px;
+            display: inline-block;
+            font-weight: 600;
+            border: 1px solid #ffb347;
+            color: #ffd89c;
+        }
+
+        .play-btn {
+            background: transparent;
+            border: 2px solid #ffb347;
+            color: #ffb347;
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .play-btn:hover {
+            background: #ffb347;
+            color: #0b0c14;
+            box-shadow: 0 0 25px #ffb347;
+        }
+
+        /* features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 70px 0;
+        }
+
+        .feature {
+            background: rgba(10, 8, 22, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid #3f3155;
+            border-radius: 30px;
+            padding: 28px 20px;
+            text-align: center;
+            border-bottom: 3px solid #ffb347;
+        }
+
+        .feature i {
+            font-size: 2.2rem;
+            color: #ffb347;
+            margin-bottom: 16px;
+        }
+
+        .feature h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #9aa3bb;
+        }
+
+        /* provably fair banner */
+        .fair-banner {
+            background: linear-gradient(125deg, #201c30, #0c0a18);
+            border-radius: 40px;
+            padding: 40px;
+            border: 1px solid #ffb34730;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .fair-banner h2 {
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #fff4d0, #ffb851);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fair-banner p {
+            max-width: 500px;
+            color: #b0b9d0;
+        }
+
+        .fair-banner .btn-glow {
+            background: transparent;
+            border-width: 2px;
+        }
+
+        /* footer */
+        .footer {
+            background: #080713;
+            border-top: 1px solid #2a2340;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #f5b01b, #ff6b4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .footer-about {
+            color: #8e98b2;
+            margin-bottom: 20px;
+        }
+
+        .social i {
+            background: #1b172b;
+            padding: 10px;
+            border-radius: 50%;
+            color: #ffb347;
+            margin-right: 10px;
+            transition: 0.2s;
+        }
+
+        .social i:hover {
+            background: #ffb347;
+            color: #080713;
+            cursor: pointer;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 22px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #8e98b2;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+
+        .footer-col a:hover {
+            color: #ffb347;
+        }
+
+        .copyright {
+            border-top: 1px solid #1f1b30;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #6a7085;
+            font-size: 0.9rem;
+        }
+
+        .age-warning {
+            background: rgba(255, 180, 70, 0.1);
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-weight: 500;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid #ffb347;
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .features { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">STONE CITY<span>casino</span></div>
+            <div class="nav">
+                <a href="#">Home</a>
+                <a href="#">Games</a>
+                <a href="#">Promotions</a>
+                <a href="#">Support</a>
+                <a href="#" class="btn-glow"><i class="fas fa-user"></i> Sign in</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>CRASH THE ODDS<br>RISE WITH STONE CITY</h1>
+            <p>Multiplayer crash games – Aviator, Chicken Road, Spaceman & more. Instant play, provably fair.</p>
+            <div class="badge-container">
+                <div class="badge"><i class="fas fa-bolt"></i> Instant cashouts</div>
+                <div class="badge"><i class="fas fa-shield-alt"></i> Provably fair</div>
+                <div class="badge"><i class="fas fa-gift"></i> 100% welcome bonus</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">🔥 trending games</h2>
+        <div class="game-grid">
+            <!-- Aviator card -->
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-fighter-jet"></i></div>
+                <h3>AVIATOR</h3>
+                <p>Watch the plane fly – cash out before it flies away. Multiplier up to x1000.</p>
+                <span class="multiplier-badge"><i class="fas fa-chart-line"></i> 1.2M bets today</span>
+                <button class="play-btn"><i class="fas fa-play"></i> Play Aviator</button>
+            </div>
+            <!-- Chicken Road card -->
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-drumstick-bite"></i></div>
+                <h3>CHICKEN ROAD</h3>
+                <p>The chicken crosses the road – will it reach the other side? Place your bets.</p>
+                <span class="multiplier-badge"><i class="fas fa-trophy"></i> max win 500x</span>
+                <button class="play-btn"><i class="fas fa-play"></i> Play Chicken Road</button>
+            </div>
+            <!-- Spaceman (similar style) -->
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-user-astronaut"></i></div>
+                <h3>SPACEMAN</h3>
+                <p>Fly to the stars – but don't get lost in space. Cash out at the right moment.</p>
+                <span class="multiplier-badge"><i class="fas fa-rocket"></i> 10k players now</span>
+                <button class="play-btn"><i class="fas fa-play"></i> Play Spaceman</button>
+            </div>
+            <!-- JetX / additional -->
+            <div class="game-card">
+                <div class="game-icon"><i class="fas fa-gauge-high"></i></div>
+                <h3>JETX</h3>
+                <p>Feel the speed – the multiplier grows until it crashes. Simple, fast, addictive.</p>
+                <span class="multiplier-badge"><i class="fas fa-bolt"></i> 2.3x avg</span>
+                <button class="play-btn"><i class="fas fa-play"></i> Play JetX</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- features / why choose us -->
+    <div class="container">
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-rocket"></i>
+                <h4>Lightning fast</h4>
+                <p>Deposits and withdrawals in seconds. No delays, no hidden fees.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-dice"></i>
+                <h4>Provably fair</h4>
+                <p>Every round is verifiable – you control the fairness.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-coins"></i>
+                <h4>VIP rewards</h4>
+                <p>High rollers get cashback, higher limits and personal manager.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- provably fair banner -->
+    <div class="container">
+        <div class="fair-banner">
+            <div>
+                <h2>PROVABLY FAIR</h2>
+                <p>All games use chainlink VRF – verify each round yourself. 100% transparent.</p>
+            </div>
+            <button class="btn-glow"><i class="fas fa-check-circle"></i> verify round</button>
+        </div>
+    </div>
+
+    <!-- more games preview (compact) -->
+    <div class="container">
+        <h2 class="section-title">🎲 other crash games</h2>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin: 30px 0;">
+            <span class="badge" style="font-size: 1.1rem;"><i class="fas fa-dragon"></i> Dragon Tower</span>
+            <span class="badge" style="font-size: 1.1rem;"><i class="fas fa-meteor"></i> Meteorite</span>
+            <span class="badge" style="font-size: 1.1rem;"><i class="fas fa-skull"></i> Crash 1000</span>
+            <span class="badge" style="font-size: 1.1rem;"><i class="fas fa-hat-wizard"></i> Magic Spins</span>
+        </div>
+    </div>
+
+    <!-- age warning & responsible gaming -->
+    <div class="container">
+        <div class="age-warning">
+            <i class="fas fa-exclamation-triangle" style="color: #ffb347; margin-right: 8px;"></i>
+            YOU MUST BE 18+ TO PLAY. STONE CITY PROMOTES RESPONSIBLE GAMBLING. SET LIMITS, STAY IN CONTROL.
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">STONE CITY</div>
+                    <p class="footer-about">The ultimate destination for crash game enthusiasts. Fair play, big wins, and non‑stop adrenaline.</p>
+                    <div class="social">
+                        <i class="fab fa-telegram"></i>
+                        <i class="fab fa-discord"></i>
+                        <i class="fab fa-x-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>GAMES</h5>
+                    <a href="#">Aviator</a>
+                    <a href="#">Chicken Road</a>
+                    <a href="#">Spaceman</a>
+                    <a href="#">JetX</a>
+                </div>
+                <div class="footer-col">
+                    <h5>COMPANY</h5>
+                    <a href="#">About</a>
+                    <a href="#">Fairness</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                </div>
+                <div class="footer-col">
+                    <h5>SUPPORT</h5>
+                    <a href="#">FAQ</a>
+                    <a href="#">Live chat</a>
+                    <a href="#">Responsible gaming</a>
+                    <a href="#">Self‑exclusion</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <span>© 2025 Stone City N.V. All rights reserved. Licensed by Curaçao eGaming.</span>
+                <span><i class="fas fa-ban" style="color: #ffb347;"></i> 18+ only</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- dummy interactivity: buttons show alert -->
+    <script>
+        // just for demonstration – play buttons show an alert
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('🎮 STONE CITY – game would start in real environment (demo).');
+            });
+        });
+        // also for other buttons
+        document.querySelectorAll('.btn-glow').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (btn.classList.contains('btn-glow') && !btn.closest('.nav')) {
+                    e.preventDefault();
+                    alert('🔐 Demo: this action is simulated.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
